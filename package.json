@@ -15,6 +15,7 @@
     "express": "^4.21.1",
     "mongodb": "^6.10.0",
     "mongoose": "^8.7.3",
-    "mongosh": "^2.3.2"
+    "mongosh": "^2.3.2",
+    "supertokens-node": "^20.1.5"
   }
 }
