@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const supertokens = require("supertokens-node");
 const { middleware, errorHandler } = require("supertokens-node/framework/express");
-const { verifySession } = require("supertokens-node/recipe/session/framework/express"); // Corrected import
+const { verifySession } = require("supertokens-node/recipe/session/framework/express");  // Correct import
 require("./config/supertokensConfig");  // Import the Supertokens config
 
 const app = express();
@@ -19,6 +19,10 @@ app.use(middleware());
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch((error) => console.error('MongoDB connection error:', error));
+
+// Use health data routes
+const dataRoutes = require('./routes/data');
+app.use('/api/health', dataRoutes);
 
 // Example of a protected route (user must be logged in to access)
 app.get("/dashboard", verifySession(), (req, res) => {
