@@ -3,19 +3,22 @@ const { SuperTokensError } = require("supertokens-node/lib/build/error");
 const Session = require("supertokens-node/recipe/session");
 
 supertokens.init({
-  framework: "express", // or whatever framework you're using
+  framework: "express",
   supertokens: {
-    connectionURI: "https://try.supertokens.com", // Use this for testing, replace with your instance for production
+    connectionURI: "https://try.supertokens.com",
   },
   appInfo: {
     appName: "Your App Name",
-    apiDomain: "http://localhost:3000", // Your API domain
-    websiteDomain: "http://localhost:3001", // Your frontend domain
-    apiBasePath: "/auth", // Where Supertokens routes will be exposed
-    websiteBasePath: "/auth", // Frontend URL for authentication
+    apiDomain: "http://localhost:5000",  // Your backend domain
+    websiteDomain: "http://localhost:3000",  // Your frontend domain
   },
   recipeList: [
     require("supertokens-node/recipe/emailpassword").init(),
-    Session.init(), // For session management
+    Session.init({
+      cookieDomain: 'localhost',  // Ensure cookies are shared between frontend and backend
+      cookieSameSite: 'Lax',      // Set to 'None' if you're using HTTPS, 'Lax' should work for localhost
+      cookieSecure: false,        // Set to true only if using HTTPS (false for development on localhost)
+    })
   ],
 });
+
