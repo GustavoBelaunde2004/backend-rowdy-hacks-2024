@@ -14,7 +14,7 @@ console.log("Openai connection succesful")
 // UPLOAD USERS INFO
 router.post('/data', async (req, res) => {
   try {
-    const { user, healthData } = req.body;  // Extract user and healthData from the request body
+    const { user, healthData } = req.body;
 
     if (!user || !healthData) {
       return res.status(400).json({ message: 'Missing required fields' });
@@ -37,33 +37,41 @@ router.post('/data', async (req, res) => {
         throw new Error(`Date cannot be in the future: ${dayData.date}`);
       }
 
+      // Convert all health metrics to numbers before storing them
+      const heartRate = Number(dayData.heartRate);
+      const steps = Number(dayData.steps);
+      const calorie = Number(dayData.calorie);
+      const water = Number(dayData.water);
+      const sleep = Number(dayData.sleep);
+      const stress = Number(dayData.stress);
+
       // Find if data already exists for this user and this date
       const existingData = await Data.findOne({ user: user, date: date });
 
       if (existingData) {
         // If data exists for this user and date, update it with the new values
-        existingData.heartRate = dayData.heartRate;
-        existingData.steps = dayData.steps;
-        existingData.calorie = dayData.calorie;
-        existingData.water = dayData.water;
-        existingData.sleep = dayData.sleep;
-        existingData.stress = dayData.stress;
+        existingData.heartRate = heartRate;
+        existingData.steps = steps;
+        existingData.calorie = calorie;
+        existingData.water = water;
+        existingData.sleep = sleep;
+        existingData.stress = stress;
 
-        await existingData.save();  // Save the updated data
+        await existingData.save();
       } else {
-        // If no existing data, create a new entry
+        // Create new entry if no existing data
         const newData = new Data({
-          user: user,  // Ensure user is stored in the new entry
+          user: user,
           date: date,
-          heartRate: dayData.heartRate,
-          steps: dayData.steps,
-          calorie: dayData.calorie,
-          water: dayData.water,
-          sleep: dayData.sleep,
-          stress: dayData.stress
+          heartRate,
+          steps,
+          calorie,
+          water,
+          sleep,
+          stress
         });
 
-        await newData.save();  // Save the new entry
+        await newData.save();
       }
     }
 
@@ -73,6 +81,7 @@ router.post('/data', async (req, res) => {
     res.status(500).send(`Error: ${error.message}`);
   }
 });
+
 
 // RETRIEVES AND ANALYZES INFO USING AI
 router.get('/analyze', async (req, res) => {
@@ -159,7 +168,7 @@ async function generateRecommendationsUsingOpenAI(analysis) {
   return completion.choices[0].message.content.trim();
 }
 
-// Utility function to calculate averages
+//function to calculate averages
 function calculateAverage(data, field) {
   const total = data.reduce((sum, entry) => sum + entry[field], 0);
   return (total / data.length).toFixed(2);
