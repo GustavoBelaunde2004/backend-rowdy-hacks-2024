@@ -16,7 +16,6 @@ This repository contains the backend for the **Personalized Health Tracker** app
 - **Backend Framework**: Node.js (Express.js)  
 - **Machine Learning**: TensorFlow (Python)  
 - **Database**: MongoDB  
-- **Environment Configuration**: `.env` for managing sensitive variables  
 
 ---
 
