@@ -87,10 +87,10 @@ Endpoint	Method	Description
 /api/recommendations	GET	Provides personalized recommendations.
 
 ## Future Enhancements
-Add support for advanced health trend predictions using more complex ML models.
-Integrate wearable device data (e.g., Fitbit, Apple Health).
+- Add support for advanced health trend predictions using more complex ML models.
+- Integrate wearable device data (e.g., Fitbit, Apple Health).
 
 ## Contributors
-Gustavo Belaunde - Backend development, ML integration
-John Stoklas 
-Theodore Chan 
+- Gustavo Belaunde - Backend development, ML integration
+- John Stoklas 
+- Theodore Chan 
