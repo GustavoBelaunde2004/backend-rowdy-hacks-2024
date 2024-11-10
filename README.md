@@ -81,10 +81,11 @@ python model.py
 ```
 
 ## API Endpoints
-Endpoint	Method	Description
-/api/data	POST	Stores user health data.
-/api/analyze	GET	Analyzes stored health data.
-/api/recommendations	GET	Provides personalized recommendations.
+| Endpoint                | Method | Description                             |
+|-------------------------|--------|-----------------------------------------|
+| `/api/data`             | POST   | Stores user health data.                |
+| `/api/analyze`          | GET    | Analyzes stored health data.            |
+| `/api/recommendations`  | GET    | Provides personalized recommendations.  |
 
 ## Future Enhancements
 - Add support for advanced health trend predictions using more complex ML models.
